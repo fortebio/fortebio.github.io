@@ -1,0 +1,11 @@
+{
+  "device": "RAPIDPLUS",
+  "latest": "1.2.3",
+  "release_date": "2025-11-20",
+
+  "bin": "firmware/rapidplus_v1.2.3.bin",
+  "sig": "signatures/rapidplus_v1.2.3.sig",
+  "changelog": "changelogs/rapidplus_v1.2.3.md",
+
+  "sha256": "PUT_SHA256_HASH_HERE"
+}

@@ -1,104 +1,104 @@
-/* ===== GLOBAL ===== */
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: #0D1117;
-    color: #E6F1F7;
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f2f4f7;
+  color: #333;
 }
 
-/* ===== NAV ===== */
-.navbar {
-    display: flex;
-    align-items: center;
-    padding: 12px 25px;
-    background: #0F1724;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.nav-left {
-    display: flex;
-    align-items: center;
+.header {
+  text-align: center;
+  background: #005a95;
+  color: white;
+  padding: 30px 20px;
 }
 
 .logo {
-    height: 40px;
-    margin-right: 12px;
+  height: 70px;
+  margin-bottom: 10px;
 }
 
-.brand {
-    font-size: 20px;
-    font-weight: bold;
-    color: #1CD4D4;
-    letter-spacing: 1px;
+.subtitle {
+  font-size: 16px;
+  opacity: 0.9;
 }
 
-/* ===== HEADER ===== */
-.hero {
-    text-align: center;
-    padding: 60px 20px;
-    background: linear-gradient(135deg, #00A8C6, #1CD4D4, #21E6C1);
-    color: #0D1117;
-}
-
-.hero h1 {
-    margin: 0;
-    font-size: 40px;
-    font-weight: bold;
-}
-
-.hero p {
-    margin-top: 10px;
-    font-size: 18px;
-}
-
-/* ===== CONTENT ===== */
 .container {
-    width: 90%;
-    max-width: 900px;
-    margin: auto;
-    padding: 30px 0;
+  width: 90%;
+  max-width: 800px;
+  margin: 30px auto;
 }
 
-.section h2 {
-    margin-bottom: 15px;
-    font-size: 24px;
-    color: #21E6C1;
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
 }
 
-.card, .item {
-    background: #141A27;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 15px;
-    border: 1px solid #1CD4D4;
-    transition: 0.3s ease;
+h2 {
+  margin-top: 0;
 }
 
-.card:hover, .item:hover {
-    border-color: #21E6C1;
-    transform: translateY(-2px);
+.select-box {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-.download-btn {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 10px 16px;
-    background: linear-gradient(135deg, #00A8C6, #1CD4D4);
-    color: #0D1117;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 8px;
+.btn {
+  padding: 12px 22px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-.download-btn:hover {
-    background: linear-gradient(135deg, #1CD4D4, #21E6C1);
+.btn-primary {
+  background: #0078d4;
+  color: white;
 }
 
-/* ===== FOOTER ===== */
+.btn-secondary {
+  background: #444;
+  color: white;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #444;
+}
+
+#progressBar {
+  width: 100%;
+  background: #ddd;
+  height: 18px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+#progressBar span {
+  display: block;
+  height: 100%;
+  background: #28a745;
+  width: 0%;
+  border-radius: 8px;
+}
+
 .footer {
-    margin-top: 40px;
-    text-align: center;
-    padding: 25px;
-    color: #88A0B3;
-    font-size: 14px;
+  text-align: center;
+  padding: 15px;
+  background: #e4e4e4;
+  margin-top: 30px;
+  color: #444;
 }

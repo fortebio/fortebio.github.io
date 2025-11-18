@@ -1,44 +1,66 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forte Biotech | Firmware Update Center</title>
-    <link rel="stylesheet" href="assets/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAPIDPLUS Firmware Updater</title>
+  <link rel="stylesheet" href="assets/styles.css" />
 </head>
+
 <body>
+  <header class="header">
+    <img src="assets/logo.png" class="logo" alt="RAPIDPLUS" />
+    <h1>RAPIDPLUS Firmware Updater</h1>
+    <p class="subtitle">Simple • Safe • User Friendly</p>
+  </header>
 
-<nav class="navbar">
-    <div class="nav-left">
-        <img src="assets/logo.png" class="logo">
-        <span class="brand">FORTE BIOTECH</span>
-    </div>
-</nav>
+  <main class="container">
 
-<header class="hero">
-    <h1>Firmware Update Center</h1>
-    <p>Cập nhật phiên bản firmware mới nhất cho thiết bị Forte Biotech</p>
-</header>
+    <!-- Step 1 -->
+    <section class="card">
+      <h2>Step 1 — Choose Firmware Version</h2>
+      <p>Select the firmware version you want to install:</p>
 
-<main class="container">
+      <select id="versionSelect" class="select-box">
+        <option value="">-- Select Version --</option>
+      </select>
 
-    <section class="section">
-        <h2>⚡ Phiên bản mới nhất</h2>
-        <div id="latest-info" class="card">Đang tải...</div>
+      <div id="versionInfo" class="info"></div>
+      <button id="loadVersionBtn" class="btn">Load Firmware Info</button>
     </section>
 
-    <section class="section">
-        <h2>📂 Tất cả phiên bản</h2>
-        <div id="all-versions" class="list"></div>
+
+    <!-- Step 2 -->
+    <section class="card">
+      <h2>Step 2 — Connect to ESP32</h2>
+      <p>Click the button below to connect to your ESP32 device.</p>
+
+      <button id="connectBtn" class="btn btn-secondary">Connect ESP32</button>
+      <div id="portStatus" class="info"></div>
     </section>
 
-</main>
 
-<footer class="footer">
-    © 2025 Forte Biotech – All Rights Reserved.
-</footer>
+    <!-- Step 3 -->
+    <section class="card">
+      <h2>Step 3 — Flash Firmware</h2>
+      <p>Once connected, click Flash to upload firmware to ESP32.</p>
 
-<script src="assets/app.js"></script>
+      <button id="flashBtn" class="btn btn-primary" disabled>Flash Firmware</button>
 
+      <div class="progress-area">
+        <label>Progress:</label>
+        <div id="progressBar"><span></span></div>
+      </div>
+
+      <div id="flashStatus" class="info"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    RAPIDPLUS Firmware Update • © 2025
+  </footer>
+
+  <script src="assets/app.js"></script>
 </body>
 </html>
