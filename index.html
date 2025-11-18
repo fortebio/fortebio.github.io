@@ -1,66 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RAPIDPLUS Firmware Updater</title>
-  <link rel="stylesheet" href="assets/styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RAPIDPLUS — Web Flasher</title>
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
-
 <body>
   <header class="header">
-    <img src="assets/logo.png" class="logo" alt="RAPIDPLUS" />
-    <h1>RAPIDPLUS Firmware Updater</h1>
-    <p class="subtitle">Simple • Safe • User Friendly</p>
+    <img src="assets/logo.png" class="logo" alt="RAPIDPLUS Logo">
+    <div>
+      <h1>RAPIDPLUS Firmware Flasher</h1>
+      <p class="subtitle">Step 1 → Choose version • Step 2 → Connect ESP32 • Step 3 → Flash</p>
+    </div>
   </header>
 
   <main class="container">
-
-    <!-- Step 1 -->
+    <!-- STEP 1 -->
     <section class="card">
-      <h2>Step 1 — Choose Firmware Version</h2>
-      <p>Select the firmware version you want to install:</p>
-
-      <select id="versionSelect" class="select-box">
-        <option value="">-- Select Version --</option>
-      </select>
-
-      <div id="versionInfo" class="info"></div>
-      <button id="loadVersionBtn" class="btn">Load Firmware Info</button>
+      <h2>Step 1 — Choose firmware</h2>
+      <div class="row">
+        <select id="versionSelect" class="select-box" aria-label="Firmware version">
+          <option value="">-- Select firmware version --</option>
+        </select>
+        <button id="loadBtn" class="btn">Load</button>
+      </div>
+      <div id="fwInfo" class="info">Firmware information will appear here.</div>
     </section>
 
-
-    <!-- Step 2 -->
+    <!-- STEP 2 -->
     <section class="card">
-      <h2>Step 2 — Connect to ESP32</h2>
-      <p>Click the button below to connect to your ESP32 device.</p>
-
-      <button id="connectBtn" class="btn btn-secondary">Connect ESP32</button>
-      <div id="portStatus" class="info"></div>
+      <h2>Step 2 — Connect ESP32</h2>
+      <div class="row">
+        <button id="connectBtn" class="btn btn-secondary">Connect</button>
+        <button id="disconnectBtn" class="btn" disabled>Disconnect</button>
+      </div>
+      <div id="portStatus" class="info">Not connected</div>
+      <div id="bootHints" class="hint">Make sure your ESP32 is in bootloader mode (hold BOOT while resetting if required).</div>
     </section>
 
-
-    <!-- Step 3 -->
+    <!-- STEP 3 -->
     <section class="card">
-      <h2>Step 3 — Flash Firmware</h2>
-      <p>Once connected, click Flash to upload firmware to ESP32.</p>
-
-      <button id="flashBtn" class="btn btn-primary" disabled>Flash Firmware</button>
-
-      <div class="progress-area">
-        <label>Progress:</label>
-        <div id="progressBar"><span></span></div>
+      <h2>Step 3 — Flash</h2>
+      <div class="row">
+        <button id="eraseBtn" class="btn" disabled>Erase Flash (recommended)</button>
+        <button id="flashBtn" class="btn btn-primary" disabled>Flash Firmware</button>
       </div>
 
-      <div id="flashStatus" class="info"></div>
+      <div class="progress-area">
+        <label>Progress</label>
+        <div id="progressBar"><span id="progressFill"></span></div>
+        <div id="logArea" class="log">Logs will appear here.</div>
+        <div id="result" class="info"></div>
+      </div>
     </section>
 
+    <section class="card small">
+      <h3>Notes</h3>
+      <ul>
+        <li>Recommended browser: Chrome / Edge (Web Serial enabled).</li>
+        <li>For official flashing (erase + write addresses) include a browser build of <code>esptool-js</code>. See instructions below.</li>
+      </ul>
+    </section>
   </main>
 
-  <footer class="footer">
-    RAPIDPLUS Firmware Update • © 2025
-  </footer>
+  <footer class="footer">RAPIDPLUS • © 2025</footer>
 
+  <!-- Optional: include esptool-js browser bundle here, if you have it -->
+  <!-- <script src="libs/esptool.min.js"></script> -->
+
+  <!-- Small wrapper that tries to use esptool if available -->
+  <script src="assets/esptool-wrapper.js"></script>
+
+  <!-- Main app logic -->
   <script src="assets/app.js"></script>
 </body>
 </html>
