@@ -1,0 +1,104 @@
+/* ===== GLOBAL ===== */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #0D1117;
+    color: #E6F1F7;
+}
+
+/* ===== NAV ===== */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 12px 25px;
+    background: #0F1724;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 12px;
+}
+
+.brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1CD4D4;
+    letter-spacing: 1px;
+}
+
+/* ===== HEADER ===== */
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #00A8C6, #1CD4D4, #21E6C1);
+    color: #0D1117;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.hero p {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* ===== CONTENT ===== */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    padding: 30px 0;
+}
+
+.section h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #21E6C1;
+}
+
+.card, .item {
+    background: #141A27;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #1CD4D4;
+    transition: 0.3s ease;
+}
+
+.card:hover, .item:hover {
+    border-color: #21E6C1;
+    transform: translateY(-2px);
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #00A8C6, #1CD4D4);
+    color: #0D1117;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #1CD4D4, #21E6C1);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    padding: 25px;
+    color: #88A0B3;
+    font-size: 14px;
+}
