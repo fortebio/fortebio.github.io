@@ -1,61 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>RAPIDPLUS Firmware Update</title>
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
 </head>
 
 <body>
-  <header class="header">
-    <img src="assets/logo.png" class="logo" alt="RAPIDPLUS" />
+  <header class="header" role="banner">
+    <img src="assets/logo.png" class="logo" alt="RAPIDPLUS logo" />
     <div class="title-area">
       <h1>RAPIDPLUS Firmware Update</h1>
-      <p>Safe · Reliable · Medical‑grade flashing</p>
+      <p>Safe · Reliable · Medical-grade flashing</p>
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" role="main" aria-live="polite">
 
     <!-- STEP 1 -->
-    <section class="card">
-      <h2>Step 1 — Select Firmware</h2>
+    <section class="card" aria-labelledby="step1">
+      <h2 id="step1">Step 1 — Select Firmware</h2>
 
-      <select id="versionSelect" class="select-box">
+      <select id="versionSelect" class="select-box" aria-label="Select firmware version">
         <option value="">Loading versions…</option>
       </select>
 
-      <button id="loadVersionBtn" class="btn primary" disabled>Load Firmware</button>
+      <button id="loadVersionBtn" class="btn primary" disabled aria-label="Load firmware info">Load Firmware</button>
 
-      <div id="versionInfo" class="info-box"></div>
+      <div id="versionInfo" class="info-box" aria-atomic="true"></div>
     </section>
 
 
     <!-- STEP 2 -->
-    <section class="card">
-      <h2>Step 2 — Connect Device</h2>
+    <section class="card" aria-labelledby="step2">
+      <h2 id="step2">Step 2 — Connect Device</h2>
 
-      <button id="connectBtn" class="btn outline">Connect RAPIDPLUS</button>
+      <button id="connectBtn" class="btn outline" aria-label="Connect RAPIDPLUS">Connect RAPIDPLUS</button>
 
-      <div id="portStatus" class="info-box muted">Not connected</div>
+      <div id="portStatus" class="info-box muted" aria-atomic="true">Not connected</div>
 
-      <p class="note">Web Serial works on Chrome, Edge, and Chromium‑based browsers.</p>
+      <p class="note">Web Serial works on Chrome, Edge, and Chromium-based browsers.</p>
     </section>
 
 
     <!-- STEP 3 -->
-    <section class="card">
-      <h2>Step 3 — Flash Firmware</h2>
+    <section class="card" aria-labelledby="step3">
+      <h2 id="step3">Step 3 — Flash Firmware</h2>
 
       <div class="action-row">
-        <button id="flashBtn" class="btn primary" disabled>Flash Now</button>
-        <a id="downloadBtn" class="btn outline" href="#" download>Download .bin</a>
+        <button id="flashBtn" class="btn primary" disabled aria-label="Flash firmware">Flash Now</button>
+        <a id="downloadBtn" class="btn outline btn-inline" href="#" download>Download .bin</a>
       </div>
 
-      <div class="progress-area">
+      <div class="progress-area" aria-hidden="false">
         <label>Progress</label>
-        <div id="progressBar"><span></span></div>
+        <div id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><span style="width:0%"></span></div>
 
         <div class="progress-info">
           <span id="pct">0%</span>
@@ -64,7 +65,7 @@
         </div>
       </div>
 
-      <div id="flashStatus" class="info-box muted">Waiting…</div>
+      <div id="flashStatus" class="info-box muted" aria-live="polite">Waiting…</div>
     </section>
 
   </main>
