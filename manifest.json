@@ -1,9 +1,9 @@
 {
   "device": "RAPIDPLUS",
-  "latest": "V2.3.2",
+  "latest": "V2.3.1",
   "release_date": "2025-11-20",
 
-  "bin": "firmware/rapidplus_v1.2.3.bin",
+  "bin": "firmware/V2.3.1.bin",
   "sig": "signatures/rapidplus_v1.2.3.sig",
   "changelog": "changelogs/rapidplus_v1.2.3.md",
 
