@@ -4,51 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RAPIDPLUS Firmware Update</title>
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
   <header class="header">
     <img src="assets/logo.png" class="logo" alt="RAPIDPLUS" />
-    <h1>RAPIDPLUS Firmware Update</h1>
-    <p class="subtitle">Update your RAPIDPLUS device in 3 simple steps</p>
+    <div class="title-area">
+      <h1>RAPIDPLUS Firmware Update</h1>
+      <p>Safe · Reliable · Medical‑grade flashing</p>
+    </div>
   </header>
 
   <main class="container">
 
     <!-- STEP 1 -->
     <section class="card">
-      <h2>Step 1 — Select RAPIDPLUS Firmware</h2>
+      <h2>Step 1 — Select Firmware</h2>
 
       <select id="versionSelect" class="select-box">
         <option value="">Loading versions…</option>
       </select>
 
-      <button id="loadVersionBtn" class="btn primary" disabled>
-        Load Firmware
-      </button>
+      <button id="loadVersionBtn" class="btn primary" disabled>Load Firmware</button>
 
       <div id="versionInfo" class="info-box"></div>
     </section>
 
+
     <!-- STEP 2 -->
     <section class="card">
-      <h2>Step 2 — Connect RAPIDPLUS</h2>
+      <h2>Step 2 — Connect Device</h2>
 
-      <button id="connectBtn" class="btn secondary">
-        Connect RAPIDPLUS
-      </button>
+      <button id="connectBtn" class="btn outline">Connect RAPIDPLUS</button>
 
       <div id="portStatus" class="info-box muted">Not connected</div>
 
-      <p id="webSerialNote" class="note">
-        Web Serial works on Chrome, Edge, and Chromium-based browsers.
-      </p>
+      <p class="note">Web Serial works on Chrome, Edge, and Chromium‑based browsers.</p>
     </section>
+
 
     <!-- STEP 3 -->
     <section class="card">
-      <h2>Step 3 — Flash Firmware to RAPIDPLUS</h2>
+      <h2>Step 3 — Flash Firmware</h2>
 
       <div class="action-row">
         <button id="flashBtn" class="btn primary" disabled>Flash Now</button>
@@ -58,6 +56,7 @@
       <div class="progress-area">
         <label>Progress</label>
         <div id="progressBar"><span></span></div>
+
         <div class="progress-info">
           <span id="pct">0%</span>
           <span id="speed">0 KB/s</span>
@@ -70,9 +69,7 @@
 
   </main>
 
-  <footer class="footer">
-    © 2025 RAPIDPLUS Firmware System
-  </footer>
+  <footer class="footer">© 2025 RAPIDPLUS Firmware System</footer>
 
   <script src="assets/app.js"></script>
 </body>

@@ -1,138 +1,167 @@
-body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #f3f6f9;
-  color: #222;
-}
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f7f9fc;
+      color: #1d1d1f;
+    }
 
-.header {
-  text-align: center;
-  padding: 30px;
-  background: #0066b8;
-  color: white;
-}
+    /* HEADER */
+    .header {
+      padding: 28px 20px;
+      background: white;
+      border-bottom: 1px solid #e5e5e5;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo {
+      height: 48px;
+      opacity: 0.85;
+    }
+    .title-area h1{
+      font-size: 22px;
+      margin: 0;
+      font-weight: 600;
+    }
+    .title-area p{
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.6;
+    }
 
-.logo {
-  height: 70px;
-  margin-bottom: 10px;
-}
+    /* MAIN CONTAINER */
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 30px auto;
+    }
 
-.subtitle {
-  margin-top: 5px;
-  opacity: 0.9;
-}
+    /* CARD */
+    .card {
+      background: white;
+      padding: 26px;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      margin-bottom: 26px;
+      border: 1px solid #eef0f4;
+    }
 
-.container {
-  width: 90%;
-  max-width: 800px;
-  margin: 30px auto;
-}
+    .card h2{
+      margin-top: 0;
+      color: #0a84ff;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
 
-.card {
-  background: white;
-  padding: 22px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-  margin-bottom: 20px;
-}
+    /* INPUT SELECT */
+    .select-box{
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid #c9ccd1;
+      font-size: 15px;
+      margin-bottom: 18px;
+      background: #fff;
+    }
 
-h2 {
-  margin-top: 0;
-  color: #0066b8;
-}
+    /* BUTTONS */
+    .btn{
+      padding: 14px 22px;
+      border: none;
+      border-radius: 30px; /* pill shape */
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+    }
 
-.select-box {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #aaa;
-  margin-bottom: 15px;
-}
+    .btn.primary{
+      background: #0a84ff;
+      color: white;
+    }
+    .btn.primary:hover{
+      background: #006fe0;
+    }
 
-.btn {
-  padding: 12px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 15px;
-}
+    .btn.secondary{
+      background: #3a3a3c;
+      color: white;
+    }
 
-.btn.primary {
-  background: #0078d4;
-  color: white;
-}
+    .btn.outline{
+      background: transparent;
+      border: 2px solid #0a84ff;
+      color: #0a84ff;
+    }
 
-.btn.secondary {
-  background: #333;
-  color: white;
-}
+    .btn:disabled{
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
 
-.btn.outline {
-  background: transparent;
-  border: 1px solid #0078d4;
-  color: #0078d4;
-}
+    /* INFO BOX */
+    .info-box{
+      background: #f0f6ff;
+      padding: 14px;
+      border-radius: 14px;
+      margin-top: 12px;
+      font-size: 14px;
+      border: 1px solid #e1e8f5;
+    }
+    .muted{ opacity: 0.7; }
 
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+    /* NOTE */
+    .note{
+      font-size: 13px;
+      color: #555;
+      margin-top: 10px;
+    }
 
-.info-box {
-  background: #f1f7ff;
-  padding: 12px;
-  border-radius: 8px;
-  margin-top: 12px;
-}
+    /* ACTION ROW */
+    .action-row{
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
 
-.muted {
-  opacity: 0.7;
-}
+    /* PROGRESS */
+    .progress-area label{
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
 
-.note {
-  font-size: 13px;
-  color: #555;
-}
+    #progressBar{
+      width: 100%;
+      height: 16px;
+      background: #e2e5ea;
+      border-radius: 14px;
+    }
 
-.action-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
+    #progressBar span{
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: #32d74b;
+      border-radius: 14px;
+      transition: width .25s linear;
+    }
 
-.progress-area label {
-  font-size: 14px;
-  font-weight: bold;
-}
+    .progress-info{
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
 
-#progressBar {
-  width: 100%;
-  height: 14px;
-  background: #ddd;
-  border-radius: 8px;
-  margin-top: 6px;
-}
-
-#progressBar span {
-  display: block;
-  height: 100%;
-  width: 0%;
-  background: #28a745;
-  border-radius: 8px;
-  transition: width 0.25s linear;
-}
-
-.progress-info {
-  margin-top: 6px;
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-}
-
-.footer {
-  text-align: center;
-  padding: 20px;
-  background: #e5e5e5;
-  margin-top: 30px;
-  font-size: 14px;
-}
+    /* FOOTER */
+    .footer{
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+      opacity: 0.6;
+      margin-top: 40px;
+    }
