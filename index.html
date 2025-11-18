@@ -1,78 +1,79 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>RAPIDPLUS — Web Flasher</title>
-  <link rel="stylesheet" href="assets/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAPIDPLUS Firmware Update</title>
+  <link rel="stylesheet" href="assets/styles.css" />
 </head>
+
 <body>
   <header class="header">
-    <img src="assets/logo.png" class="logo" alt="RAPIDPLUS Logo">
-    <div>
-      <h1>RAPIDPLUS Firmware Flasher</h1>
-      <p class="subtitle">Step 1 → Choose version • Step 2 → Connect ESP32 • Step 3 → Flash</p>
-    </div>
+    <img src="assets/logo.png" class="logo" alt="RAPIDPLUS" />
+    <h1>RAPIDPLUS Firmware Update</h1>
+    <p class="subtitle">Update your RAPIDPLUS device in 3 simple steps</p>
   </header>
 
   <main class="container">
+
     <!-- STEP 1 -->
     <section class="card">
-      <h2>Step 1 — Choose firmware</h2>
-      <div class="row">
-        <select id="versionSelect" class="select-box" aria-label="Firmware version">
-          <option value="">-- Select firmware version --</option>
-        </select>
-        <button id="loadBtn" class="btn">Load</button>
-      </div>
-      <div id="fwInfo" class="info">Firmware information will appear here.</div>
+      <h2>Step 1 — Select RAPIDPLUS Firmware</h2>
+
+      <select id="versionSelect" class="select-box">
+        <option value="">Loading versions…</option>
+      </select>
+
+      <button id="loadVersionBtn" class="btn primary" disabled>
+        Load Firmware
+      </button>
+
+      <div id="versionInfo" class="info-box"></div>
     </section>
 
     <!-- STEP 2 -->
     <section class="card">
-      <h2>Step 2 — Connect ESP32</h2>
-      <div class="row">
-        <button id="connectBtn" class="btn btn-secondary">Connect</button>
-        <button id="disconnectBtn" class="btn" disabled>Disconnect</button>
-      </div>
-      <div id="portStatus" class="info">Not connected</div>
-      <div id="bootHints" class="hint">Make sure your ESP32 is in bootloader mode (hold BOOT while resetting if required).</div>
+      <h2>Step 2 — Connect RAPIDPLUS</h2>
+
+      <button id="connectBtn" class="btn secondary">
+        Connect RAPIDPLUS
+      </button>
+
+      <div id="portStatus" class="info-box muted">Not connected</div>
+
+      <p id="webSerialNote" class="note">
+        Web Serial works on Chrome, Edge, and Chromium-based browsers.
+      </p>
     </section>
 
     <!-- STEP 3 -->
     <section class="card">
-      <h2>Step 3 — Flash</h2>
-      <div class="row">
-        <button id="eraseBtn" class="btn" disabled>Erase Flash (recommended)</button>
-        <button id="flashBtn" class="btn btn-primary" disabled>Flash Firmware</button>
+      <h2>Step 3 — Flash Firmware to RAPIDPLUS</h2>
+
+      <div class="action-row">
+        <button id="flashBtn" class="btn primary" disabled>Flash Now</button>
+        <a id="downloadBtn" class="btn outline" href="#" download>Download .bin</a>
       </div>
 
       <div class="progress-area">
         <label>Progress</label>
-        <div id="progressBar"><span id="progressFill"></span></div>
-        <div id="logArea" class="log">Logs will appear here.</div>
-        <div id="result" class="info"></div>
+        <div id="progressBar"><span></span></div>
+        <div class="progress-info">
+          <span id="pct">0%</span>
+          <span id="speed">0 KB/s</span>
+          <span id="eta">ETA --:--</span>
+        </div>
       </div>
+
+      <div id="flashStatus" class="info-box muted">Waiting…</div>
     </section>
 
-    <section class="card small">
-      <h3>Notes</h3>
-      <ul>
-        <li>Recommended browser: Chrome / Edge (Web Serial enabled).</li>
-        <li>For official flashing (erase + write addresses) include a browser build of <code>esptool-js</code>. See instructions below.</li>
-      </ul>
-    </section>
   </main>
 
-  <footer class="footer">RAPIDPLUS • © 2025</footer>
+  <footer class="footer">
+    © 2025 RAPIDPLUS Firmware System
+  </footer>
 
-  <!-- Optional: include esptool-js browser bundle here, if you have it -->
-  <!-- <script src="libs/esptool.min.js"></script> -->
-
-  <!-- Small wrapper that tries to use esptool if available -->
-  <script src="assets/esptool-wrapper.js"></script>
-
-  <!-- Main app logic -->
   <script src="assets/app.js"></script>
 </body>
 </html>
