@@ -1,5 +1,5 @@
 import { ESPLoader, Transport } 
-  from "https://unpkg.com/esptool-js@0.5.4/bundle.js";
+  from "https://cdn.jsdelivr.net/npm/esptool-js@0.6.0/dist/web/index.js";
 
 const versionSelect = document.getElementById("versionSelect");
 const loadBtn = document.getElementById("loadVersionBtn");
@@ -80,15 +80,16 @@ loadBtn.onclick = async () => {
 ------------------------------------------------------*/
 connectBtn.onclick = async () => {
   try {
+    flashStatus.innerText = "Opening serial port…";
+
     port = await navigator.serial.requestPort();
     await port.open({ baudRate: 115200 });
 
     const transport = new Transport(port);
     loader = new ESPLoader(transport, 115200);
 
-    flashStatus.innerText = "Connecting…";
-    await loader.connect();
-    await loader.sync();
+    flashStatus.innerText = "Initializing bootloader…";
+    await loader.initialize();
 
     portStatus.innerHTML = "<strong style='color:green'>Connected ✓</strong>";
     flashBtn.disabled = false;
@@ -112,27 +113,29 @@ flashBtn.onclick = async () => {
     flashStatus.innerText = "Loading binaries…";
 
     const parts = [];
-    let totalSize = 0;
-
     for (const f of entry.files) {
       const resp = await fetch(f.path);
-      if (!resp.ok) throw new Error(`File missing: ${f.path}`);
+      if (!resp.ok) throw new Error(`Missing file: ${f.path}`);
 
       const bin = new Uint8Array(await resp.arrayBuffer());
       parts.push({
         data: bin,
         address: parseInt(f.offset)
       });
-
-      totalSize += bin.length;
     }
+
+    const totalBytes =
+      parts.reduce((sum, p) => sum + p.data.length, 0);
 
     flashStatus.innerText = "Flashing…";
 
     const start = performance.now();
+    let writtenBytes = 0;
 
-    await loader.flashData(parts, (written, total) => {
-      const pct = Math.round((written / total) * 100);
+    await loader.program(parts, (written) => {
+      writtenBytes = written;
+
+      const pct = Math.round((written / totalBytes) * 100);
       progressBar.style.width = pct + "%";
       pctEl.innerText = pct + "%";
 
@@ -140,13 +143,13 @@ flashBtn.onclick = async () => {
       const speed = (written / 1024 / elapsed).toFixed(1);
       speedEl.innerText = `${speed} KB/s`;
 
-      const remain = total - written;
+      const remain = totalBytes - written;
       const eta = Math.round(remain / 1024 / speed);
       etaEl.innerText = `ETA ${eta}s`;
     });
 
     flashStatus.innerHTML = "<span style='color:green'>Flash OK ✓</span>";
-    await loader.reset();
+    await loader.disconnect();
 
   } catch (e) {
     flashStatus.innerHTML = `<span style="color:red">Flash error: ${e}</span>`;
