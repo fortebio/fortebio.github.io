@@ -2,8 +2,15 @@
   "device": "RAPIDPLUS",
   "latest": "v2.3.1",
   "release_date": "2025-11-20",
-  "bin": "firmware/v2.3.1.bin",
-  "sig": "signatures/rapidplus_v1.2.3.sig",
-  "changelog": "changelog/rapidplus_v1.2.3.md",
-  "sha256": "PUT_SHA256_HASH_HERE"
+
+  "flash_files": [
+    {
+      "path": "firmware/merged_0x0.bin",
+      "offset": "0x0"
+    },
+    {
+      "path": "firmware/app_0x10000.bin",
+      "offset": "0x10000"
+    }
+  ]
 }

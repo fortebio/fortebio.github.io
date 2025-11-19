@@ -13,7 +13,7 @@
     <img src="assets/logo.png" class="logo" alt="RAPIDPLUS logo" />
     <div class="title-area">
       <h1>RAPIDPLUS Firmware Update</h1>
-      <p>Safe · Reliable Flashing System</p>
+      <p>Reliable · Web-Serial · ESP32 Flashing</p>
     </div>
   </header>
 
@@ -24,32 +24,24 @@
       <h2>Step 1 — Select Firmware</h2>
 
       <select id="versionSelect" class="select-box">
-        <option value="">Loading versions…</option>
+        <option value="">Loading…</option>
       </select>
 
       <button id="loadVersionBtn" class="btn primary" disabled>Load Firmware</button>
-
       <div id="versionInfo" class="info-box"></div>
     </section>
 
     <!-- STEP 2 -->
     <section class="card">
       <h2>Step 2 — Connect Device</h2>
-
       <button id="connectBtn" class="btn outline">Connect RAPIDPLUS</button>
-
       <div id="portStatus" class="info-box muted">Not connected</div>
-
-      <p class="note">Web Serial works on Chrome, Edge, and Chromium-based browsers.</p>
     </section>
 
     <!-- STEP 3 -->
     <section class="card">
       <h2>Step 3 — Flash Firmware</h2>
-
-      <div class="action-row">
-        <button id="flashBtn" class="btn primary" disabled>Flash Now</button>
-      </div>
+      <button id="flashBtn" class="btn primary" disabled>Flash Now</button>
 
       <div class="progress-area">
         <label>Progress</label>
@@ -69,6 +61,8 @@
 
   <footer class="footer">© 2025 RAPIDPLUS Firmware System</footer>
 
+  <!-- MUST BE LOADED FIRST -->
+  <script src="assets/esptool.min.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>
