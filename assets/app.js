@@ -1,113 +1,154 @@
-// assets/app.js
-document.addEventListener("DOMContentLoaded", () => {
+import { ESPLoader, Transport } 
+  from "https://unpkg.com/esptool-js@0.5.4/bundle.js";
 
-  const versionSelect = document.getElementById("versionSelect");
-  const loadBtn = document.getElementById("loadVersionBtn");
-  const versionInfo = document.getElementById("versionInfo");
+const versionSelect = document.getElementById("versionSelect");
+const loadBtn = document.getElementById("loadVersionBtn");
+const versionInfo = document.getElementById("versionInfo");
 
-  const connectBtn = document.getElementById("connectBtn");
-  const flashBtn = document.getElementById("flashBtn");
+const connectBtn = document.getElementById("connectBtn");
+const flashBtn = document.getElementById("flashBtn");
 
-  const portStatus = document.getElementById("portStatus");
-  const flashStatus = document.getElementById("flashStatus");
+const portStatus = document.getElementById("portStatus");
+const flashStatus = document.getElementById("flashStatus");
 
-  const progressBar = document.querySelector("#progressBar span");
-  const pctEl = document.getElementById("pct");
-  const speedEl = document.getElementById("speed");
-  const etaEl = document.getElementById("eta");
+const progressBar = document.querySelector("#progressBar span");
+const pctEl = document.getElementById("pct");
+const speedEl = document.getElementById("speed");
+const etaEl = document.getElementById("eta");
 
-  let manifest = null;
-  let loader = null;
+let manifest = null;
+let loader = null;
+let port = null;
 
-  function resetProgress() {
-    progressBar.style.width = "0%";
-    pctEl.innerText = "0%";
-    speedEl.innerText = "0 KB/s";
-    etaEl.innerText = "ETA --:--";
+/* ------------------------------------------------------
+   Helpers
+------------------------------------------------------*/
+function resetProgress() {
+  progressBar.style.width = "0%";
+  pctEl.innerText = "0%";
+  speedEl.innerText = "0 KB/s";
+  etaEl.innerText = "ETA --:--";
+}
+
+async function fileExists(path) {
+  try {
+    const r = await fetch(path, { method: "HEAD" });
+    return r.ok;
+  } catch (_) {
+    return false;
   }
+}
 
-  // Load manifest.json
-  async function init() {
-    const resp = await fetch("manifest.json");
+/* ------------------------------------------------------
+   Step 1 — Load manifest.json
+------------------------------------------------------*/
+async function init() {
+  try {
+    const resp = await fetch("manifest.json", { cache: "no-store" });
     manifest = await resp.json();
 
-    versionSelect.innerHTML = `
-      <option value="${manifest.latest}">${manifest.latest}</option>
-    `;
+    versionSelect.innerHTML = manifest.firmwares
+      .map(f => `<option value="${f.version}">${f.version}</option>`)
+      .join("");
+
     loadBtn.disabled = false;
+  } catch (e) {
+    versionSelect.innerHTML = `<option>Error loading manifest</option>`;
   }
-  init();
+}
+init();
 
-  loadBtn.onclick = () => {
-    let txt = `<strong>Version:</strong> ${manifest.latest}<br><br>`;
-    manifest.flash_files.forEach(f => {
-      txt += `File: <code>${f.path}</code> @ <strong>${f.offset}</strong><br>`;
-    });
-    versionInfo.innerHTML = txt;
-  };
+loadBtn.onclick = async () => {
+  const version = versionSelect.value;
+  const entry = manifest.firmwares.find(f => f.version === version);
 
-  // Connect ESP32
-  connectBtn.onclick = async () => {
-    try {
-      const port = await navigator.serial.requestPort();
-      loader = new ESPLoader(port, { baudrate: 115200 });
+  let html = `<strong>Version:</strong> ${version}<br><br>`;
 
-      flashStatus.innerHTML = "Connecting to bootloader…";
+  for (const f of entry.files) {
+    const ok = await fileExists(f.path);
+    html += `File: <code>${f.path}</code> @ <strong>${f.offset}</strong> → `;
+    html += ok
+      ? `<span style="color:green">OK</span><br>`
+      : `<span style="color:red">MISSING</span><br>`;
+  }
 
-      await loader.connect();
-      await loader.sync();
+  versionInfo.innerHTML = html;
+};
 
-      portStatus.innerHTML = "<strong style='color:green'>Connected ✓</strong>";
-      flashBtn.disabled = false;
-    } catch (err) {
-      flashStatus.innerHTML = `<strong style='color:red'>Connect error: ${err}</strong>`;
-    }
-  };
+/* ------------------------------------------------------
+   Step 2 — Connect device
+------------------------------------------------------*/
+connectBtn.onclick = async () => {
+  try {
+    port = await navigator.serial.requestPort();
+    await port.open({ baudRate: 115200 });
 
-  // FLASH 2-FILES
-  flashBtn.onclick = async () => {
-    if (!loader) {
-      flashStatus.innerHTML = "<strong style='color:red'>Not connected</strong>";
-      return;
-    }
+    const transport = new Transport(port);
+    loader = new ESPLoader(transport, 115200);
+
+    flashStatus.innerText = "Connecting…";
+    await loader.connect();
+    await loader.sync();
+
+    portStatus.innerHTML = "<strong style='color:green'>Connected ✓</strong>";
+    flashBtn.disabled = false;
+
+  } catch (e) {
+    flashStatus.innerHTML = `<span style="color:red">Connect error: ${e}</span>`;
+  }
+};
+
+/* ------------------------------------------------------
+   Step 3 — Flash
+------------------------------------------------------*/
+flashBtn.onclick = async () => {
+  try {
+    const version = versionSelect.value;
+    const entry = manifest.firmwares.find(f => f.version === version);
+
+    if (!entry) throw new Error("Firmware not found");
 
     resetProgress();
-    flashStatus.innerHTML = "Downloading firmware…";
+    flashStatus.innerText = "Loading binaries…";
 
-    try {
-      const parts = [];
+    const parts = [];
+    let totalSize = 0;
 
-      for (const p of manifest.flash_files) {
-        const bin = await fetch(p.path).then(r => r.arrayBuffer());
-        parts.push({
-          data: new Uint8Array(bin),
-          address: parseInt(p.offset)
-        });
-      }
+    for (const f of entry.files) {
+      const resp = await fetch(f.path);
+      if (!resp.ok) throw new Error(`File missing: ${f.path}`);
 
-      flashStatus.innerHTML = "Flashing… Do not disconnect.";
-
-      const start = performance.now();
-
-      await loader.flashData(parts, (written, total) => {
-        const pct = Math.round((written / total) * 100);
-        progressBar.style.width = pct + "%";
-        pctEl.innerText = pct + "%";
-
-        const elapsed = (performance.now() - start) / 1000;
-        const speed = (written / 1024 / elapsed).toFixed(1);
-        speedEl.innerText = `${speed} KB/s`;
-
-        const remain = total - written;
-        const eta = Math.round(remain / 1024 / speed);
-        etaEl.innerText = `ETA ${eta}s`;
+      const bin = new Uint8Array(await resp.arrayBuffer());
+      parts.push({
+        data: bin,
+        address: parseInt(f.offset)
       });
 
-      flashStatus.innerHTML = "<strong style='color:green'>Flash OK ✓</strong><br>Rebooting…";
-      await loader.reset();
-
-    } catch (err) {
-      flashStatus.innerHTML = `<strong style='color:red'>Flash error: ${err}</strong>`;
+      totalSize += bin.length;
     }
-  };
-});
+
+    flashStatus.innerText = "Flashing…";
+
+    const start = performance.now();
+
+    await loader.flashData(parts, (written, total) => {
+      const pct = Math.round((written / total) * 100);
+      progressBar.style.width = pct + "%";
+      pctEl.innerText = pct + "%";
+
+      const elapsed = (performance.now() - start) / 1000;
+      const speed = (written / 1024 / elapsed).toFixed(1);
+      speedEl.innerText = `${speed} KB/s`;
+
+      const remain = total - written;
+      const eta = Math.round(remain / 1024 / speed);
+      etaEl.innerText = `ETA ${eta}s`;
+    });
+
+    flashStatus.innerHTML = "<span style='color:green'>Flash OK ✓</span>";
+    await loader.reset();
+
+  } catch (e) {
+    flashStatus.innerHTML = `<span style="color:red">Flash error: ${e}</span>`;
+  }
+};
