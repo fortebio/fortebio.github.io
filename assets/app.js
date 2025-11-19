@@ -1,5 +1,5 @@
-import { ESPLoader, Transport } 
-  from "https://cdn.jsdelivr.net/npm/esptool-js@0.6.0/dist/web/index.js";
+//import { ESPLoader, Transport } from "https://cdn.jsdelivr.net/npm/esptool-js@0.6.0/dist/web/index.js";
+import { ESPLoader, Transport } from "./esptool-js/bundle.js"
 
 const versionSelect = document.getElementById("versionSelect");
 const loadBtn = document.getElementById("loadVersionBtn");
