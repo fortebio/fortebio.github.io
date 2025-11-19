@@ -1,16 +1,17 @@
 {
-  "device": "RAPIDPLUS",
-  "latest": "v2.3.1",
-  "release_date": "2025-11-20",
-
-  "flash_files": [
+  "latest": "v2.3.2",
+  "firmwares": [
     {
-      "path": "firmware/merged_0x0.bin",
-      "offset": "0x0"
+      "version": "v2.3.1",
+      "files": [
+        { "path": "firmware/v2.3.1.bin", "offset": "0x0" }
+      ]
     },
     {
-      "path": "firmware/app_0x10000.bin",
-      "offset": "0x10000"
+      "version": "v2.3.2",
+      "files": [
+        { "path": "firmware/v2.3.2.bin", "offset": "0x0" }
+      ]
     }
   ]
 }
