@@ -1,11 +1,12 @@
 //import { ESPLoader, Transport } from "https://cdn.jsdelivr.net/npm/esptool-js@0.6.0/dist/web/index.js";
 //import { ESPLoader, Transport } from "./esptool-js/bundle.js"
-import {
-  getInstallManifest,
-  detectChipFamily,
-  load_chip,
-  flash_firmware
-} from "https://unpkg.com/esp-web-tools@9/dist/web/install.js";
+// import {
+//   getInstallManifest,
+//   detectChipFamily,
+//   load_chip,
+//   flash_firmware
+// } from "https://unpkg.com/esp-web-tools@9/dist/web/install.js";
+import { ESPLoader, Transport } from "https://unpkg.com/esptool-js/bundle.js";
 
 const versionSelect = document.getElementById("versionSelect");
 const loadBtn = document.getElementById("loadVersionBtn");
